@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "app/src/pages/ChatBox.jsx", "app/app.js", "app/src/pages/LandingPage.jsx", "app/src/pages/login.jsx", "app/src/pages/signup.jsx"  ]
 }
