@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import {View, Text, TextInput, TouchableOpacity, Image, StyleSheet} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native'; 
-
 
 const ChatBox = () => {
   const navigation = useNavigation();
-  
   const [message, setMessage] = useState("");
+
   const quickQuestions = [
     "CSUMB Admission",
     "CSUMB Academic Support",
@@ -20,6 +19,14 @@ const ChatBox = () => {
       <View style={styles.header}>
         <Image source={require("../images/logo.png")} style={styles.logo} />
         <Text style={styles.title}>OTTERCARE AI</Text>
+
+        {/* Login Button */}
+        <TouchableOpacity 
+          style={styles.loginButton} 
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Text style={styles.loginText}>LOG IN</Text>
+        </TouchableOpacity>
       </View>
 
       {/* AI Prompt */}
@@ -73,6 +80,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 10,
     paddingHorizontal: 20,
+    position: "relative",
   },
   logo: {
     width: 40,
@@ -84,6 +92,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 10,
     fontFamily: "monospace",
+  },
+  loginButton: {
+    position: "absolute",
+    right: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+  },
+  loginText: {
+    fontSize: 14,
+    color: '#fff',
+    fontWeight: 'bold',
   },
   promptContainer: {
     alignItems: "center",

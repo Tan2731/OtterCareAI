@@ -1,11 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LandingPage from './src/pages/LandingPage';
-import ChatBox from './src/pages/ChatBox';
-import Login from './src/pages/login';
-import Signup from './src/pages/signup';
-
+import LandingPage from './app/src/pages/LandingPage';
+import ChatBox from './app/src/pages/ChatBox';
+import Login from './app/src/pages/Login';
+import Signup from './app/src/pages/Signup';
 
 const Stack = createStackNavigator();
 
@@ -40,3 +39,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
