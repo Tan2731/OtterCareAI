@@ -1,10 +1,58 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { ScrollView, View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native'; 
 
 const ChatBox = () => {
   const navigation = useNavigation();
   const [message, setMessage] = useState("");
+
+  const sendMessageToCoze = async (userInput) => {
+    try {
+      const response = await fetch(' https://api.coze.com/v3/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'pat_gqnw5ZXGH7jo9Go3WeKe3GzgipixCCZNJLMm9MDnC3WlI5bnBuVG4NOLeIxdYVZD' 
+        },
+        body: JSON.stringify({
+          bot_id: '7481567734736928774',     
+          user: 'csumb-user',             
+          stream: false
+        })
+      });
+  
+      const data = await response.json();
+
+      console.log("Full Coze API response:", data);
+
+      const reply = data?.messages?.[0]?.content || "No response from AI.";
+      return reply;
+  
+    } catch (error) {
+      console.error('Error contacting Coze:', error);
+      return "Oops, something went wrong!";
+    }
+  };
+
+  const [inputValue, setInputValue] = useState('');
+  const [chatHistory, setChatHistory] = useState([]); // Optional: show conversation
+
+const handleSend = async () => {
+  if (!message.trim()) return;
+
+  const userMessage = message;
+  setMessage(''); 
+  setChatHistory(prev => [...prev, { from: 'user', text: userMessage }]);
+
+  console.log("Sending message to Coze:", userMessage);
+
+  const aiReply = await sendMessageToCoze(userMessage);
+
+  console.log("Received reply from Coze:", aiReply);
+
+  setChatHistory(prev => [...prev, { from: 'bot', text: aiReply }]);
+};
+
 
   const quickQuestions = [
     "CSUMB Admission",
@@ -53,10 +101,29 @@ const ChatBox = () => {
           value={message}
           onChangeText={setMessage}
         />
-        <TouchableOpacity style={styles.sendButton}>
+        <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
           <Text style={styles.sendIcon}>➤</Text>
         </TouchableOpacity>
       </View>
+
+      <ScrollView style={{ maxHeight: 400 }}>
+        {chatHistory.map((msg, index) => (
+        <View
+         key={index}
+        style={{
+        alignSelf: msg.from === 'user' ? 'flex-end' : 'flex-start',
+        backgroundColor: msg.from === 'user' ? '#dbeafe' : '#e5e7eb',
+        padding: 10,
+        margin: 5,
+        borderRadius: 10,
+        maxWidth: '80%'
+      }}
+    >
+      <Text>{msg.text}</Text>
+    </View>
+  ))}
+</ScrollView>
+
 
       {/* Footer */}
       <Text style={styles.footer}>
