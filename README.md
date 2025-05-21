@@ -1,4 +1,9 @@
-# Welcome to your Expo app 👋
+# OtterCare AI CSUMB Chatbot 🦦
+
+## Summary 
+Students at CSUMB often have questions about various topics, including admissions, transfers, and campus resources. Getting answers from departments or academic advisors can be delayed, causing frustration and confusion.
+We created an AI chatbot prototype using the Coze Web Application and CSUMB data to provide quick, accurate responses to student questions. The chatbot will be accessible as a web application for easy access on both desktop and mobile devices. The OtterCare AI acts as a virtual  academic advisor to students.
+
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
